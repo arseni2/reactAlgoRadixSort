@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 import {ListType} from "./App";
 
 type propsType = {data: Array<ListType> | [], steps: Array<string>}

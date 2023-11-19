@@ -1,7 +1,7 @@
 import {ListType} from "./App";
 import {Dispatch, SetStateAction} from "react";
 
-const getNum = (num: number, index: number) => {
+const getNum = (num: number, index: number): number | string => {
     const strNum = String(num);
     let end = strNum.length - 1;
     const foundNum = strNum[end - index];
@@ -29,7 +29,7 @@ export const DigitSort = (arr: Array<ListType>, setSteps?:  Dispatch<SetStateAct
         if (setSteps) {
             setSteps((prevValue: any) => [...prevValue, "Создаём пустой массив buckets"])
         }
-        let buckets = Array.from({ length: 10 }, () => []);
+        let buckets: any = Array.from({ length: 10 }, () => []);
 
         for (let j = 0; j < arr.length; j++) {
             let num = getNum(arr[j].data, i);

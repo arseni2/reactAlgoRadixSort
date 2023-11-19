@@ -1,4 +1,4 @@
-import React from 'react';
+//import React from 'react';
 
 type propsType = {
     setStepRunning: (auto: boolean) => void

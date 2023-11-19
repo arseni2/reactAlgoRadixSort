@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {ButtonPrimary, ErrorMsg, GrayBlock, Title} from "./StylingComponents";
+//@ts-ignore
 import locale from 'react-json-editor-ajrm/locale/en';
 import {DigitSort} from "./utils";
 import JSONInput from "react-json-editor-ajrm";
@@ -36,9 +37,10 @@ export type ListType = { data: number, next: any }
 function App() {
     const [errors, setError] = useState<{ line: number, reason: string, token: number } | null>(null)
     const [value, setValue] = useState(DigitSort(defaultData))
+    console.log(value)
     const [stepRunning, setStepRunning] = useState<boolean>(false)
     const [steps, setSteps] = useState<Array<string> | []>([])
-    const [stepData, setStepData] = useState<any>([])
+    const [stepData, setStepData] = useState<[] | Array<ListType>>([])
     let [currentStep, setCurrentStep] = useState(0)
 
     const changeCurrentStepCallback = (step: number) => {
@@ -57,14 +59,12 @@ function App() {
             setSteps([])
         }
         if (!errors) {
-            //@ts-ignore
+
             setValue(DigitSort(value, setSteps))
         }
     }
-    const onChangeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        //@ts-ignore
+    const onChangeHandler = (e: any) => {
         if (e.error) {
-            //@ts-ignore
             setError(e.error)
             return;
         }
@@ -76,7 +76,7 @@ function App() {
         if(currentStep >= 0 && currentStep !== 0) {
             setCurrentStep((prevValue) => prevValue - 1)
             setStepData((prevValue) => {
-                return prevValue.filter((item) => item.data !== value[currentStep - 1].data)
+                return prevValue.filter((item: any) => item.data !== value[currentStep - 1].data)
             })
        }
     }
@@ -133,7 +133,7 @@ function App() {
                 </>
             }
 
-            {!errors & !stepRunning &&
+            {(!errors && !stepRunning) &&
                 <div>
                     <Output steps={steps} data={value}/>
                 </div>
